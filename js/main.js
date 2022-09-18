@@ -170,8 +170,8 @@ var my_categrie=[
 
 function store_data_in_storage(name,arr_data){ localStorage.setItem(name,JSON.stringify(arr_data)) }
 
-store_data_in_storage('products',my_products)//store products
-store_data_in_storage('categories',my_categrie)//store categorie
+// store_data_in_storage('products',my_products)//store products
+// store_data_in_storage('categories',my_categrie)//store categorie
 
 // ======================================================================================
 // ================== Get data from storage   ===========================================
@@ -211,7 +211,7 @@ function creat_product_elements(productData,parentDiv){
     let card=createHtmlElment(cardContainer, "div", ["card"]);
     let singleProductLink= createHtmlElment(card, 'a',[])
     singleProductLink.setAttribute('href','../pages/singleproduct.html?id='+productData.id)
-    createHtmlElment(singleProductLink, 'img',["card-img-top"]).setAttribute('src',productData.img)
+    createHtmlElment(singleProductLink, 'img',["card-img-top","d-block","h-70"]).setAttribute('src',productData.img)
     let cardBody = createHtmlElment(cardContainer, "div", ["card-body"]);
     let productTitle = createHtmlElment(cardBody, "h5", ["card-title"]);
     productTitle.innerText = productData.title
@@ -226,8 +226,8 @@ function creat_product_elements(productData,parentDiv){
     }
     let cardFooter=createHtmlElment(cardBody, "div", ["d-flex" ,"justify-content-start" ,"align-items-center"]);
     if (productData.sale > 0) {  
-        createHtmlElment(cardFooter, 'h6',["text-decoration-line-through"]).innerText=productData.price+"$"
-        createHtmlElment(cardFooter, 'h6',[]).innerText=productData.sale+"$"
+        createHtmlElment(cardFooter, 'h6',["text-decoration-line-through","me-4"]).innerText=productData.price+"$"
+        createHtmlElment(cardFooter, 'h6',[]).innerText=((productData.price)-((productData.price)*10/100))+"$"
      }else{
         createHtmlElment(cardFooter, 'h6', ['me-4']).innerText="$"+productData.price
     }
@@ -267,30 +267,28 @@ showCategorieData(categoriesData)
 // ==============   filter products by categorie Name                     ==================================
 // ======================================================================================
 function filter_product(categoryName) { 
-    console.log("in filter");
+    
     store_data_in_storage("filteredCategory", categoryName);
     location.href = "categoryproducts.html";
-
-    // var filterdProduct = products_data.filter(product => product.category == categoryName)
-    // loop_on_products(filterdProduct,'products_container')
         
 }
 // ======================================== Sale Data ==================================
-// function sale_products() { 
+function sale_products() { 
 
-//     var saleProduct = products_data.filter(product => product.sale > 0)
-//     loop_on_products(saleProduct,'productsContainerBySale')
-// }
-// sale_products()
+    var saleProduct = products_data.filter(product => product.sale > 0)
+    loop_on_products(saleProduct,'saledSection')
+}
+sale_products()
+
 // =====================================================================================
                 // Featured Product 
 // =============================================================================================
-// function fetuar_products() { 
+function fetuar_products() { 
 
-//     var fetureProduct = products_data.filter(product =>product.feature >0)
-//     loop_on_products(fetureProduct,'productsContainerByFeatured')
-// }
-// fetuar_products()
+    var fetureProduct = products_data.filter(product =>product.feature >0)
+    loop_on_products(fetureProduct,'featuredSection')
+}
+fetuar_products()
 // ======================================================================================
 //      loop on products 
 // ======================================================================================
@@ -380,14 +378,14 @@ function filter_product(categoryName) {
 //   setInterval(pre, 3000);
 
 // ========================= search Page =====================
-// function searchPage(){
+function searchPage(){
 
-//     let searchinput = document.getElementById("search");
-//     var inputString=searchinput.value;
-//     console.log(inputString);
-//     window.localStorage.setItem('search',JSON.stringify(inputString))
-//     window.location.href='searchproducts.html'
-// }
+    let searchinput = document.getElementById("search");
+    var inputString=searchinput.value;
+    console.log(inputString);
+    window.localStorage.setItem('search',JSON.stringify(inputString))
+    window.location.href='searchproducts.html'
+}
 
 
-// searchInProducts() 
+ 

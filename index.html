@@ -19,6 +19,7 @@
 
     <section id="section1">
         <!-- <header>position-sticky top-0 left-0 -->
+            
             <nav class="navbar navbar-expand-lg bg-light ">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="index.html">Online Shopping</a>
@@ -37,7 +38,7 @@
                                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Shop</a>
+                                <a class="nav-link" href="shop.html">Shop</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#saledSection">Saled</a>
@@ -45,25 +46,23 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#about-us">About us </a>
                             </li>
-
+                                <li class="nav-item d-flex align-items-center d-none" id="myCart">
+                                    <i class="bi bi-cart4"></i><a class="nav-link px-0" href="pages/cart.html"><i class="fa fa-shopping-cart"></i>
+                                        myCart</a>
+                                </li>
+                            <span id="vistorBlock" class="d-flex">  
                             <li class="nav-item">
                                 <a class="nav-link btn btn-primary ms-2 text-light" href="./login.html"> Sign In </a>     
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn btn-primary ms-2 text-light" href="./register.html"> Register </a>
-                            </li>
-                            
+                            </li></span>
                             <li class="nav-item">
-                                <button class="btn btn-outline-danger  text-light ms-2 d-none userlogout" id="IndexLogout"> Log out </button>
+                                    <span id="userNameIndex" class=" nav-link disabled d-none"></span>
                             </li>
                             <li class="nav-item">
-                                    <span id="userNameIndex" class="d-none"></span>
+                                <a class=" nav-link btn btn-danger text-light ms-2 d-none userlogout" id="IndexLogout"> Log out </a>
                             </li>
-                      
-                            <li class="nav-item d-none" id="mycart">
-                                <a class="nav-link" href="pages/cart.html"><i class="fa fa-shopping-cart"></i> myCart</a>
-                            </li>
-                            
                         </ul>
 
                     </div>
@@ -84,38 +83,28 @@
                     </div>
                 </div>
             </nav>
-            <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="imgs/banar/cartBanar.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="imgs/banar/index.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="imgs/banar/slid1.jpg" class="d-block w-100" alt="...">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div> -->
-        
+    <img src="imgs/banar/slid4.jpg" class="d-block vh-100 w-100" alt="">
+    <!-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="imgs/banar/slid4.jpg" class="d-block vh-100 w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="imgs/banar/slid1.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="imgs/banar/slid3.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div> -->
          </header>
 
 
@@ -153,12 +142,23 @@
 
         </div>
     </section>
-    <section id="saledSection" class="py-5 bg-light">
+    <section class="py-5 bg-light">
+        <!-- <img src="images/sale1.jpg" class="" alt=""> -->
         <div class="container">
-            <div class="row">
-                <h1 class="text-center text-capitalize"> saled products </h1>
+            <h1 class="text-center text-capitalize"> saled products </h1>
+            <div class="row py-5" id="saledSection">
+                
             </div>
 
+        </div>
+    </section>
+    <section class="py-5 ">
+        <div class="container">
+            <h1 class="text-center text-capitalize"> featured products </h1>
+            <div class="row py-5" id="featuredSection">
+    
+            </div>
+    
         </div>
     </section>
     <footer id="about-us">

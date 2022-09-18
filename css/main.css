@@ -24,6 +24,10 @@ a{
     font-size: 22px;
     color: #11245a !important;
 }
+.carousel-inner img{
+    object-fit: cover;
+    object-position: center;
+}
 footer .footer-top{
     padding-top: 80px;
     padding-bottom: 30px;
@@ -54,5 +58,8 @@ footer p{
 }
 .stars{
     color: #FFA41C;
+}
+#userNameIndex{
+     color: #11245a
 }
 

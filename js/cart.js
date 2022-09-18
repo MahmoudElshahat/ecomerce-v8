@@ -107,15 +107,15 @@ function inrement_qty(index,ele_id){
                       }
                       cart.splice(index,1)
                       cart.push(nData)
-                      
                       productTotalPrice.innerHTML=`$ ${(qty+1)*cart[i].pro_price}`
-                      sum_total()
+                      
                        break;
                       
                     }
             }
-
             store_data_in_storage('carts',cart)
+            sum_total()
+
 
 }
 // ====================================================================================
@@ -150,9 +150,9 @@ function decrement_qty(index,ele_id){
                       
                     }
             }
-
-            store_data_in_storage('carts',cart)
           }
+          store_data_in_storage('carts',cart)
+          sum_total()
 }
 
 // ====================================================================================

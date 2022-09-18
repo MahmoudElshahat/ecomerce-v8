@@ -170,8 +170,8 @@ var my_categrie=[
 
 function store_data_in_storage(name,arr_data){ localStorage.setItem(name,JSON.stringify(arr_data)) }
 
-store_data_in_storage('products',my_products)//store products
-store_data_in_storage('categories',my_categrie)//store categorie
+// store_data_in_storage('products',my_products)//store products
+// store_data_in_storage('categories',my_categrie)//store categorie
 
 // ======================================================================================
 // ================== Get data from storage   ===========================================
@@ -211,7 +211,7 @@ function creat_product_elements(productData,parentDiv){
     let card=createHtmlElment(cardContainer, "div", ["card"]);
     let singleProductLink= createHtmlElment(card, 'a',[])
     singleProductLink.setAttribute('href','../pages/singleproduct.html?id='+productData.id)
-    createHtmlElment(singleProductLink, 'img',["card-img-top"]).setAttribute('src',productData.img)
+    createHtmlElment(singleProductLink, 'img',["card-img-top","d-block","h-70"]).setAttribute('src',productData.img)
     let cardBody = createHtmlElment(cardContainer, "div", ["card-body"]);
     let productTitle = createHtmlElment(cardBody, "h5", ["card-title"]);
     productTitle.innerText = productData.title
@@ -226,8 +226,8 @@ function creat_product_elements(productData,parentDiv){
     }
     let cardFooter=createHtmlElment(cardBody, "div", ["d-flex" ,"justify-content-start" ,"align-items-center"]);
     if (productData.sale > 0) {  
-        createHtmlElment(cardFooter, 'h6',["text-decoration-line-through"]).innerText=productData.price+"$"
-        createHtmlElment(cardFooter, 'h6',[]).innerText=productData.sale+"$"
+        createHtmlElment(cardFooter, 'h6',["text-decoration-line-through","me-4"]).innerText=productData.price+"$"
+        createHtmlElment(cardFooter, 'h6',[]).innerText=((productData.price)-((productData.price)*10/100))+"$"
      }else{
         createHtmlElment(cardFooter, 'h6', ['me-4']).innerText="$"+productData.price
     }

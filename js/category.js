@@ -42,9 +42,31 @@ function creat_product_elements(productData,parentDiv){
     cardBody.innerHTML+=`<a href="#" onclick='add_to_cart(${productData.id})'  class="btn btn-primary w-100 my-1"> Add To Cart </a>`
     
  }
-// ======================================================================================
-// ================== show Data to user page  ===========================================
-// ======================================================================================
 function loop_on_products(objData,parentDiv){ 
    return objData.forEach(product=>{creat_product_elements(product,parentDiv)})
 }
+
+
+const categoriesData = fetch_data_from_storage('categories') || []
+function createHtmlElment(parent, child,classes=[]) {
+    var element = document.createElement(child);
+    parent.append(element);
+    classes.forEach(elementClass => {
+        if (elementClass) element.classList.add(elementClass); 
+    });
+  
+    return element;
+}
+function creatCategorieElement(category) {
+    let categoriesUl = document.getElementById("categoryUl");
+    let categoryLi = createHtmlElment(categoriesUl, "li", ["nav-item"]);
+    categoryLi.innerHTML=`<span class="nav-link" href="" onclick=filter_product("${category.categoryName}")>${category.categoryName}</span>`     
+}
+// ======================================================================================
+// ==============    show categorie Data                    ==================================
+// ======================================================================================
+function showCategorieData(categoriesData) {
+    console.log(categoriesData);
+    categoriesData.forEach(category=>creatCategorieElement(category) )                         
+}
+showCategorieData(categoriesData)

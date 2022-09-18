@@ -94,7 +94,8 @@ function creatCategorieElement(category) {
 // ======================================================================================
 // ==============    show categorie Data                    ==================================
 // ======================================================================================
-function showCategorieData(categoriesData){
+function showCategorieData(categoriesData) {
+    console.log(categoriesData);
     categoriesData.forEach(category=>creatCategorieElement(category) )                         
 }
 showCategorieData(categoriesData)
@@ -102,7 +103,6 @@ showCategorieData(categoriesData)
 // ==============   filter products by categorie Name                     ==================================
 // ======================================================================================
 function filter_product(categoryName) { 
-    
     store_data_in_storage("filteredCategory", categoryName);
     location.href = "categoryproducts.html";
         
@@ -173,4 +173,3 @@ function searchPage(){
     window.localStorage.setItem('search',JSON.stringify(inputString))
     window.location.href='searchproducts.html'
 }
-searchInProducts() 

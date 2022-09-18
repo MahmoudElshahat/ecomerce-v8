@@ -41,9 +41,9 @@ function cartElements(product){
 //    fetch Data from storage     
 // ====================================================================================
 
-function fetch_data_from_storage(storage_get_item){
+function fetch_data_from_storage(storageItem){
       try{
-        var arr_data=localStorage.getItem(storage_get_item)||[]
+        var arr_data=localStorage.getItem(storageItem)||[]
 
         var parse_data=JSON.parse(arr_data)
 
@@ -66,10 +66,14 @@ function store_data_in_storage(name,arr_data){
 // ========    show data of cart     ============================
 // ====================================================================================
 function show_cart_data(){
-
-  var cart_data= fetch_data_from_storage('carts')||[]
-
-  cart_data.forEach(product=>cartElements(product))
+  try{
+    var cart_data= fetch_data_from_storage('carts')||[]
+    // if(cart_data)
+        cart_data.forEach(product=>cartElements(product))
+  }catch(e){
+     throw (e+'No Data in cart !');
+  }
+  
 
 
 }

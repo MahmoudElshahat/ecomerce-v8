@@ -1,4 +1,3 @@
-
 var my_products=[
     {
         id:1,
@@ -163,6 +162,8 @@ var my_categrie=[
 
 ]
 
+
+
 // ======================================================================================
 // ================== store Data in storage   ===========================================
 // ======================================================================================
@@ -177,7 +178,6 @@ store_data_in_storage('categories',my_categrie)//store categorie
 // ======================================================================================
 
 function fetch_data_from_storage(storage_get_item){
-
     var arr_data=localStorage.getItem(storage_get_item)
     var parse_data=JSON.parse(arr_data)
     return parse_data
@@ -185,17 +185,20 @@ function fetch_data_from_storage(storage_get_item){
 // ==================== Const varaibls ===========================================
 
 const products_data=fetch_data_from_storage('products')||[]
-const categories_data=fetch_data_from_storage('categories')||[]
+const categoriesData=fetch_data_from_storage('categories')||[]
 const products_container =document.getElementById('products_container')
 
 // ======================================================================================
 // ==============    creat Html elements         ==================================
 // ======================================================================================
 
-function createHtmlElment(parent, child_element, classes) {
-    var element = document.createElement(child_element);
+function createHtmlElment(parent, child,classes=[]) {
+    var element = document.createElement(child);
     parent.append(element);
-    if (classes) element.className=classes;
+    classes.forEach(elementClass => {
+        if (elementClass) element.classList.add(elementClass); 
+    });
+  
     return element;
 }
 // =============================================================================
@@ -203,173 +206,188 @@ function createHtmlElment(parent, child_element, classes) {
 // =============================================================================
 
 function creat_product_elements(productData,parentDiv){
-
-    var container_div =document.getElementById(parentDiv)
-  
-    let sub_container= createHtmlElment(container_div, 'div','sub-container')
-    let all_products= createHtmlElment(sub_container, 'div','all-products')
-    let div_product= createHtmlElment(all_products, 'div','product')
-    let single_page_link= createHtmlElment(div_product, 'a','img-link')
-    single_page_link.setAttribute('href','../pages/singleproduct.html?id='+productData.id)
-    createHtmlElment(single_page_link, 'img','product-image').setAttribute('src',productData.img)
-    let ul= createHtmlElment(div_product, 'ul','')
-    let cart= createHtmlElment(ul, 'li','')
-    cart.innerHTML=`<i onclick='add_to_cart(${productData.id})' class="fa fa-shopping-cart shoppingCart "></i>`
-    let div_product_name= createHtmlElment(all_products, 'div', 'product-name')
-    createHtmlElment(div_product_name, 'h6', 'p-name').innerText=productData.title
-
-     if(productData.sale>0){
-        createHtmlElment(div_product_name, 'del', 'old-price',).innerText="$"+productData.price
-        createHtmlElment(div_product_name, 'h5', 'sale').innerText="$"+productData.sale
+    var productContainer =document.getElementById(parentDiv)
+    let cardContainer = createHtmlElment(productContainer, "div", ["col-md-6", "col-lg-3", "mb-2"]);
+    let card=createHtmlElment(cardContainer, "div", ["card"]);
+    let singleProductLink= createHtmlElment(card, 'a',[])
+    singleProductLink.setAttribute('href','../pages/singleproduct.html?id='+productData.id)
+    createHtmlElment(singleProductLink, 'img',["card-img-top"]).setAttribute('src',productData.img)
+    let cardBody = createHtmlElment(cardContainer, "div", ["card-body"]);
+    let productTitle = createHtmlElment(cardBody, "h5", ["card-title"]);
+    productTitle.innerText = productData.title
+    let starsRate = createHtmlElment(cardBody, "div", ["stars", "my-2"]);
+    let rateing = productData.rating;
+    for (let index = 0; index < 5; index++) {  
+        if (rateing > 0) {
+            createHtmlElment(starsRate, "i", ["bi", "bi-star-fill","me-1"]);
+            rateing =rateing - 1;
+        }
+        else{createHtmlElment(starsRate, "i", ["bi", "bi-star"]);}
+    }
+    let cardFooter=createHtmlElment(cardBody, "div", ["d-flex" ,"justify-content-start" ,"align-items-center"]);
+    if (productData.sale > 0) {  
+        createHtmlElment(cardFooter, 'h6',["text-decoration-line-through"]).innerText=productData.price+"$"
+        createHtmlElment(cardFooter, 'h6',[]).innerText=productData.sale+"$"
      }else{
-        createHtmlElment(div_product_name, 'h5', 'price').innerText="$"+productData.price
-     }
+        createHtmlElment(cardFooter, 'h6', ['me-4']).innerText="$"+productData.price
+    }
+    cardBody.innerHTML+=`<a href="#" onclick='add_to_cart(${productData.id})'  class="btn btn-primary w-100 my-1"> Add To Cart </a>`
+    
  }
 // ======================================================================================
 // ================== show Data to user page  ===========================================
 // ======================================================================================
-function show_products(){
+function loop_on_products(objData,parentDiv){ 
+   return objData.forEach(product=>{creat_product_elements(product,parentDiv)})
+}
+function show_products() {
             products_container.innerHTML=''
             loop_on_products(products_data,'products_container')
+
 }
 show_products()
+
+
 // ======================================================================================
 // ==============   creat categorie name list elements    ==================================
 // ======================================================================================
-var ele_li;
-function creat_categorie_elements(categorie) {
-
-    var categoriesUl=document.getElementById('cat_list')
-    let  categoriesName=`<li onclick=filter_product("${categorie.categoryName}")>${categorie.categoryName}</li>`
-    ele_li= createHtmlElment(categoriesUl, 'li', '')
-    ele_li.innerHTML=categoriesName
-                
+function creatCategorieElement(category) {
+    let categoriesUl = document.getElementById("categoryUl");
+    let categoryLi = createHtmlElment(categoriesUl, "li", ["nav-item"]);
+    categoryLi.innerHTML=`<span class="nav-link" href="" onclick=filter_product("${category.categoryName}")>${category.categoryName}</span>`     
 }
 // ======================================================================================
 // ==============    show categorie Data                    ==================================
 // ======================================================================================
-function show_categorie_data(categorie_data){
-
-    categorie_data.forEach(categories=>creat_categorie_elements(categories) )                         
-}//end function
-show_categorie_data(categories_data)
+function showCategorieData(categoriesData){
+    categoriesData.forEach(category=>creatCategorieElement(category) )                         
+}
+showCategorieData(categoriesData)
 // ======================================================================================
 // ==============   filter products by categorie Name                     ==================================
 // ======================================================================================
 function filter_product(categoryName) { 
+    console.log("in filter");
+    store_data_in_storage("filteredCategory", categoryName);
+    location.href = "categoryproducts.html";
 
-    products_container.innerHTML=''
-    var filterdProduct = products_data.filter(product => product.category == categoryName)
-    loop_on_products(filterdProduct,'products_container')
+    // var filterdProduct = products_data.filter(product => product.category == categoryName)
+    // loop_on_products(filterdProduct,'products_container')
         
 }
 // ======================================== Sale Data ==================================
-function sale_products() { 
+// function sale_products() { 
 
-    var saleProduct = products_data.filter(product => product.sale > 0)
-    loop_on_products(saleProduct,'productsContainerBySale')
-}
-sale_products()
+//     var saleProduct = products_data.filter(product => product.sale > 0)
+//     loop_on_products(saleProduct,'productsContainerBySale')
+// }
+// sale_products()
 // =====================================================================================
                 // Featured Product 
 // =============================================================================================
-function fetuar_products() { 
+// function fetuar_products() { 
 
-    var fetureProduct = products_data.filter(product =>product.feature >0)
-    loop_on_products(fetureProduct,'productsContainerByFeatured')
-}
-fetuar_products()
+//     var fetureProduct = products_data.filter(product =>product.feature >0)
+//     loop_on_products(fetureProduct,'productsContainerByFeatured')
+// }
+// fetuar_products()
 // ======================================================================================
 //      loop on products 
 // ======================================================================================
 
-function loop_on_products(objData,parentDiv){
-   
-   return objData.forEach(product=>{creat_product_elements(product,parentDiv)})
-}
+
 // ======================================================================================
 //                  Add to cart            
 // ======================================================================================
+// function add_to_cart(product_id){
+//     if(getCookie('userToken')||getAdminTokenCookie())
+//         {
+//         var qty=1;
+//         var productCart;
+//         var stored_cart_data=fetch_data_from_storage('carts')
+//         // if(stored_cart_data){
+//             stored_cart_data.forEach(cartProduct => {
+//                 if(cartProduct.pro_id!=2){
 
-function add_to_cart(product_id){
-    if(getCookie('userToken')||getAdminTokenCookie())
-        {
-        var qty=1;
-        var productCart;
-        var Check_id;
-        var stored_cart_data=fetch_data_from_storage('carts')||[]
-            stored_cart_data.forEach(cartProduct => {Check_id=cartProduct.pro_id})
-                if(Check_id!=product_id){
-                    products_data.forEach(product => {
-                        if (product.id == product_id) {
-                                productCart={
-                                            quntity:qty,
-                                            pro_id:product.id,
-                                            pro_name:product.title,
-                                            pro_img:product.img,
-                                            pro_price:product.price
-                                }} });
-                        stored_cart_data.push(productCart)
-                        store_data_in_storage('carts',stored_cart_data)  
-                }
-    }else{
-        location.href = './login.html'
-    }        
-}
+//                     products_data.forEach(product => {
+
+//                         if (product.id == product_id) {
+//                                 productCart={
+//                                             quntity:qty,
+//                                             pro_id:product.id,
+//                                             pro_name:product.title,
+//                                             pro_img:product.img,
+//                                             pro_price:product.price
+//                                 }} });
+//                         stored_cart_data.push(productCart)
+//                         store_data_in_storage('carts',stored_cart_data)  
+               
+//           }  
+//         })
+//         // }
+
+        
+       
+    
+//     } else{
+//         location.href = './login.html'
+//     }        
+// }
+
 // ======================================================================================
 // ==============       get cookie                 ==================================
 // ======================================================================================
-function getCookie(name) {
-    var nameEQ = name + "=";
+// function getCookie(name) {
+//     var nameEQ = name + "=";
 
-    var ca = document.cookie.split(';');
+//     var ca = document.cookie.split(';');
 
-    for(var i=0;i < ca.length;i++) {
+//     for(var i=0;i < ca.length;i++) {
 
-        var c = ca[i];
+//         var c = ca[i];
 
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+//         while (c.charAt(0)==' ') c = c.substring(1,c.length);
 
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+//         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
         
-    }
-    return null;
-}
+//     }
+//     return null;
+// }
 
 // ======================================================================================
 // ==============     Slider      ==================================
 // ======================================================================================
 
-var image =  ['/imgs/banar/index.jpg','/imgs/banar/slid3.jpg','/imgs/banar/slid4.jpg'];
-var myImg =document.getElementById('slider').querySelector('img')
-var i = 0;
-myImg.setAttribute('src', image[i]);
-//   ===========================================
-  function next()
-  {
-    i++
-    if(i>image.length-1){ i=0 }
-    myImg.setAttribute('src', image[i]);
-  }
-// ========================================
-  function pre()
-  {
-        i--
-        if(i<0){i=image.length-1}
-        myImg.setAttribute('src', image[i]);
-  }
+// var image =  ['/imgs/banar/index.jpg','/imgs/banar/slid3.jpg','/imgs/banar/slid4.jpg'];
+// var myImg =document.getElementById('slider').querySelector('img')
+// var i = 0;
+// myImg.setAttribute('src', image[i]);
+// //   ===========================================
+//   function next()
+//   {
+//     i++
+//     if(i>image.length-1){ i=0 }
+//     myImg.setAttribute('src', image[i]);
+//   }
+// // ========================================
+//   function pre()
+//   {
+//         i--
+//         if(i<0){i=image.length-1}
+//         myImg.setAttribute('src', image[i]);
+//   }
 
-  setInterval(pre, 3000);
+//   setInterval(pre, 3000);
 
 // ========================= search Page =====================
-function searchPage(){
+// function searchPage(){
 
-    let searchinput = document.getElementById("search");
-    var inputString=searchinput.value;
-    console.log(inputString);
-    window.localStorage.setItem('search',JSON.stringify(inputString))
-    window.location.href='searchproducts.html'
-}
+//     let searchinput = document.getElementById("search");
+//     var inputString=searchinput.value;
+//     console.log(inputString);
+//     window.localStorage.setItem('search',JSON.stringify(inputString))
+//     window.location.href='searchproducts.html'
+// }
 
 
 // searchInProducts() 

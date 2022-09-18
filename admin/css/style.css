@@ -53,7 +53,7 @@ text-decoration:none;
     padding: 20px 60px;
    
 }
-/* #sidebar #productButton{
+/* /* #sidebar #productButton{
     background-color: transparent;
      border: 0;
     outline: 0;
@@ -63,13 +63,13 @@ text-decoration:none;
     padding: 10px 5px;
     font-size: 20px;
     font-weight: bold;
-}
-#productButton:hover{
+} */
+/* #productButton:hover{
     cursor: pointer;
     color: black!important;
     background-color :#f2f2f2!important;
    
-} */
+} */ */
 details{
     margin: 20px 0;
 }

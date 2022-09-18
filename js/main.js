@@ -1,4 +1,4 @@
-var my_products=[
+/*var my_products=[
     {
         id:1,
         title:'Mobile-1',
@@ -127,12 +127,12 @@ var my_products=[
   
     },
 
-]
+]*/
 
 // =============================================
 // ========= Categorie Data ===========================
 // =============================================
-
+/*
 var my_categrie=[
     {
         categoryName:"Moble-Phone",
@@ -161,7 +161,7 @@ var my_categrie=[
     },
 
 ]
-
+*/
 
 
 // ======================================================================================
@@ -231,7 +231,7 @@ function creat_product_elements(productData,parentDiv){
      }else{
         createHtmlElment(cardFooter, 'h6', ['me-4']).innerText="$"+productData.price
     }
-    cardBody.innerHTML+=`<a href="#" onclick='add_to_cart(${productData.id})'  class="btn btn-primary w-100 my-1"> Add To Cart </a>`
+    cardBody.innerHTML+=`<a id="btnAddCart${productData.id}" onclick='add_to_cart(${productData.id})'  class="btn btn-primary w-100 my-1"> Add To Cart </a>`
     
  }
 // ======================================================================================
@@ -293,64 +293,125 @@ fetuar_products()
 //      loop on products 
 // ======================================================================================
 
-
 // ======================================================================================
 //                  Add to cart            
 // ======================================================================================
-// function add_to_cart(product_id){
-//     if(getCookie('userToken')||getAdminTokenCookie())
-//         {
-//         var qty=1;
-//         var productCart;
-//         var stored_cart_data=fetch_data_from_storage('carts')
-//         // if(stored_cart_data){
-//             stored_cart_data.forEach(cartProduct => {
-//                 if(cartProduct.pro_id!=2){
+function add_to_cart(product_id){
+    if(getCookie('userToken')||getAdminTokenCookie())
+        {
+        var qty;
+        var productCart;
+        // var oldqty
+        var Check_id;
+        var stored_cart_data=fetch_data_from_storage('carts')||[]
+            stored_cart_data.forEach(cartProduct => {
+                                                        Check_id=cartProduct.pro_id;
+                                                        qty=cartProduct.quntity
+                                                    })
 
-//                     products_data.forEach(product => {
+                if(Check_id!=product_id){
+                    products_data.forEach(product => {
+                        if (product.id == product_id) {
+                                productCart={
+                                            quntity:1,
+                                            pro_id:product.id,
+                                            pro_name:product.title,
+                                            pro_img:product.img,
+                                            pro_price:product.price
+                                }} });
+                        stored_cart_data.push(productCart)
+                        store_data_in_storage('carts',stored_cart_data)  
+                }
+            else{
+                // qty=
+                // products_data.forEach(product => {
+                //     if (product.id == product_id) {
+                //         store_data_in_storage('carts','') 
+                //         var x=stored_cart_data.findIndex(id => id.pro_id == '3');
+                //         console.log(x);
+                //         // Check_id
+                //         // store_data_in_storage('carts',stored_cart_data)
+                //             productCart={
+                //                         quntity:qty+1,
+                //                         pro_id:product.id,
+                //                         pro_name:product.title,
+                //                         pro_img:product.img,
+                //                         pro_price:product.price
+                //             }
+                    
+                //         } });
+                //     stored_cart_data.push(productCart)
+                //     store_data_in_storage('carts',stored_cart_data)  
+            
+                update_cart(qty,Check_id)
 
-//                         if (product.id == product_id) {
-//                                 productCart={
-//                                             quntity:qty,
-//                                             pro_id:product.id,
-//                                             pro_name:product.title,
-//                                             pro_img:product.img,
-//                                             pro_price:product.price
-//                                 }} });
-//                         stored_cart_data.push(productCart)
-//                         store_data_in_storage('carts',stored_cart_data)  
-               
-//           }  
-//         })
-//         // }
+                var disableCart='btnAddCart'+product_id
+                console.log(document.getElementById(disableCart));
+                    document.getElementById(disableCart).classList.remove('btn-primary')
+                     document.getElementById(disableCart).classList.add('btn-light')
+   
+         }
 
-        
-       
-    
-//     } else{
-//         location.href = './login.html'
-//     }        
-// }
+
+
+    }else{
+        location.href = './login.html'
+    }        
+}
+// ==========================================================
+function update_cart(qty,product_id){
+
+    // computerScore = document.getElementsByClassName('qtyinput')[index];
+    // productTotalPrice = document.getElementsByClassName('productTotalPrice')[index];
+
+
+        // qty++
+
+    var cart =fetch_data_from_storage('carts')
+
+     var nData;
+      for(var i=0;i<=cart.length;i++){
+              if(product_id==cart[i].pro_id){
+                
+                nData={
+                  pro_id:cart[i].pro_id,
+                  pro_img:cart[i].pro_img,
+                  pro_name:cart[i].pro_name,
+                  pro_price:cart[i].pro_price,
+                  quntity:qty+1
+                }
+                cart.splice(cart.i,1)
+                cart.push(nData)
+                 break;
+                
+              }
+      }
+      store_data_in_storage('carts',cart)
+}
+
+
+
+
 
 // ======================================================================================
 // ==============       get cookie                 ==================================
 // ======================================================================================
-// function getCookie(name) {
-//     var nameEQ = name + "=";
+function getCookie(name) {
+    var nameEQ = name + "=";
 
-//     var ca = document.cookie.split(';');
+    var ca = document.cookie.split(';');
 
-//     for(var i=0;i < ca.length;i++) {
+    for(var i=0;i < ca.length;i++) {
 
-//         var c = ca[i];
+        var c = ca[i];
 
-//         while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
 
-//         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
         
-//     }
-//     return null;
-// }
+    }
+    return null;
+}
 
 // ======================================================================================
 // ==============     Slider      ==================================

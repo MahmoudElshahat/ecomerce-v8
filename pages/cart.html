@@ -1,190 +1,298 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart</title>
+   
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css.map">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <section id="section1">
+    <nav class="navbar navbar-expand-lg bg-light fixed-top navbar-expand-lg ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Online Shopping</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="d-flex mx-auto" role="search">
+                    <input class="form-control me-2" type="search" id="search" value="" name="search" placeholder="Search"
+                        aria-label="Search">
+                    <input type="button" class="btn btn-outline-success" value="search" id="searchButton"
+                        onclick="searchPage()">
+                </form>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about-us">About us </a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center d-none" id="myCart">
+                        <i class="bi bi-cart4"></i><a class="nav-link px-0" href="pages/cart.html"><i
+                                class="fa fa-shopping-cart"></i>
+                            myCart</a>
+                    </li>
+                    <span id="vistorBlock" class="d-flex">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary ms-2 text-light" href="./login.html"> Sign In </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary ms-2 text-light" href="./register.html"> Register </a>
+                        </li>
+                    </span>
+                    <li class="nav-item">
+                        <span id="userNameIndex" class=" nav-link disabled d-none"></span>
+                    </li>
+                    <li class="nav-item">
+                        <a class=" nav-link btn btn-danger text-light ms-2 d-none userlogout" id="IndexLogout"> Log out </a>
+                    </li>
+                </ul>
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Cart</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
-        type="text/css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/fontawesome.min.css" integrity="sha512-R+xPS2VPCAFvLRy+I4PgbwkWjw1z5B5gNDYgJN5LfzV4gGNeRQyVrY7Uk59rX+c8tzz63j8DeZPLqmXvBxj8pA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" type="text/css">
-        <link rel="stylesheet" href="../css/main.css">
-        <link rel="stylesheet" href="../css/cart.css">
-
-    </head>
-    <body>
-        <div id="container">
-            <div  id= 'header' class="header">
-
-                <!-- <div class="header-top">
-                    <div class="left-top">
-                        <div class="socials">
-                            <a clas="socials-item" href="#" title="facebook">
-                                <i class="fa-brands fa-facebook-f"></i>
-                            </a>
-                            <a clas="socials-item" href="#" title="Twitter">
-                                <i class="fa-brands fa-twitter"></i>
-                            </a>
-                            <a clas="socials-item" href="#" title="Instagram">
-                                <i class="fa-brands fa-instagram"></i>
-                            </a>
-                            <a clas="socials-item" href="#" title="Pinterest">
-                                <i class="fa-brands fa-pinterest"></i>
-                            </a>
-                        </div>
-                          
-                    </div>
-                    <div class="right-top">
-                        <div class="contact-info">
-                            <label> Email:</label>
-                            <a clas="contact-item" href="mailto:mohamedmahmoudeg.com" title="mail">
-                              
-                               info@mohamedmahmoudeg.com
-                            </a>
-                            <label>Phone:</label>
-                            <a clas="contact-item" href="tel:01003209935" title="phone">
-                                
-                                01003209935
-                             </a>
-                           
-                        </div>
-                          
-                    </div>
-    
-                </div> -->
-            <nav>
-                <!-- Nav bar elements  -->
-    
-                <div class="logo">
-                    <a href="../index.html" ><h2>Online shopping</h2></a>
-                </div>
-    
-                <div class="menu">
-                    <ul class="menu-item">
-                        <li >
-                            <a href="/" >
-                                 Home
-                             </a>
-                        </li>
-                        <li class="d-none" id="myCart">
-                            <a href="./cart.html" >
-                                 <i class="fa fa-shopping-cart"></i> myCart
-                             </a>
-                        </li>
-                        <!-- Nav bar elements  -->
-                       
-                          <li> <span id="userNameIndex" class="d-none"></span></li>
-                         <li>
-                            <a href="#">
-                                 <span id="IndexLogout" class="d-none userlogout">Logout</span>
-                                 </a>
-                        </li>
-                        
-                        
-                 
-                        <!-- <input type="button" name="Search" value="Search" id="search_btn"> -->
-                            <span id="vistorBlock">
-                                <li><a href="register.html">Register</a></li>
-                                <!-- <li><a href="./admin/login.html">Login as Admin</a></li> -->
-                                <li><a href="./login.html"> Login</a></li>
-    
-                            </span>
-                       
-                        <li>
-                            <!-- <input id="search" type="search" name="search" 
-                            placeholder="  what do you need ?"> -->
-                        </li>
-    
-                    </ul>
             </div>
-        </nav>
-            </div>
-
-        <div class="cart_banar">
-            <!-- use in css -->
-            <!-- <img src="../imgs/banar/details-hero.jpg" alt=""> -->
         </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark" id="categories-nav">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  mb-2 mb-lg-0" id="categoryUl">
+                </ul>
+            </div>
+        </div>
+    </nav>
+    </header>
 
- <!-- End section Header  -->
-<div class="cart__table">
-    <table>
-        <thead>
-            <tr>
-                <th class="shoping__product">Products</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="t_body">
-         
+
+</section>
+
+  <div class="container-fluid ">
+    <div class="row">  
+      <div class="col-12 mypic"></div>
+    </div>
 
 
-        </tbody>
-        <tfoot>
-               <tr class="cart_checkout">
-
-                <td colspan="3">
-                    CART TOTAL
-                </td>
-                <td></td>
-                <td class="shoping__cart__price">
-                    <span id="totalCart"></span>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
- 
-</div>
+<!-----------------------------------------------      table      .............................................................................. -->
 
 
   
-    <footer id="footer">
-        <div id="footerBlock1">
-            <img src="../images/SP-563.png" style="width:350; height:150px">
-        </div>
-        <div id="footerBlock2"> 
-            <h3>Pages</h3>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">products</a></li>
-                <li><a href="#">sales</a></li>
-                <li><a href="#">Categories</a></li>
 
-            </ul>
-        </div>
-        <div id="footerBlock3">
-            <h3>Contact Us </h3>
-           <div>
-               <P>Adress: ITI Menofia Branch</P>
-               <P>Moblie: <a href='tel:01003209935'>01003209935</a></P>
-               <P>Email:<a href="mailto:info@mohamedmahmoudeg.com">
-                info@mohamedmahmoudeg.com</a></P>
-        </div>
-    </div>
-    </div>
-    <div id="footer-nav">
-        <div>
-            <p>2022 © All Rights Reserved</p>
-        </div>
-        <div id=footer-socials>
-            <a href="facebook"><i></i></a>
-            <a href="facebook"><i></i></a>
-            <a href="facebook"><i></i></a>
-            <a href="facebook"><i></i></a>
-        </div>
-    </div>
-</footer>
+  <div class="container">
+    <div class="cart__table mytable col-12">
+  
+      <table class="table border-1 m-2">
+        <thead class="thead-dark">
+          <tr class="tableheader">
+            <th class="shoping__product" scope="col">#</th>
+            <th scope="col">Products</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quntity</th>
+            <th scope="col">Total</th>
+            <th scope="col">Remove Item</th>
+          </tr>
+        </thead>
+        <tbody id="t_body">
+          <!-- <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td> -->
 
-<!-- </div>  end div container -->
+            <!-- plus or minus item  -->
+            <td> <button class="addOne"><i class="fa-solid fa-plus"></i></button>
+              
+              <button class="minusOne"><i class="fa-solid fa-minus"></i></button>
+            </td>
+            <!-- <td>9</td> -->
+            <td><input type="button" value="Delete"></td>
+          </tr>
+          <!-- <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>4</td>
+            <td>4</td>
+            <td><input type="button" value="Delete"></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+            <td>5</td>
+            <td>7</td>
+            <td><input type="button" value="Delete"></td>
+            
+          </tr> -->
+        </tbody>
+        <tfoot>
+          <tr class="cart_checkout">
 
-    <script src="../js/cart.js" async defer></script>
-    <script src="../login.js"></script>
+           <td colspan="3">
+               CART TOTAL
+           </td>
+           <td></td>
+           <td class="shoping__cart__price">
+               <span id="totalCart"></span>
+           </td>
+       </tr>
+   </tfoot>
+      </table>
+    
+    </div>
+    
+  </div>
+  
+  <!-----------------------------------------------      Footer      .............................................................................. -->
+
+
+  <!-- Remove the container if you want to extend the Footer to full width. -->
+<div class="container my-5">
+  <!-- Footer -->
+  <footer id="footer"
+          class="text-center text-lg-start text-white"
+          style="background-color: #45526e"
+          >
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: Links -->
+      <section class="">
+        <!--Grid row-->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">
+              About Us
+            </h6>
+            <p>
+             Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+             
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="links col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Categories</h6>
+            <p>
+              <a class="text-white">Category 1</a>
+            </p>
+            <p>
+              <a class="text-white">Category 2</a>
+            </p>
+            <p>
+              <a class="text-white">Category 3</a>
+            </p>
+            <p>
+              <a class="text-white">Category 4</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- <hr class="w-100 clearfix d-md-none" />
+
+         
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="links col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Contact WITH US</h6>
+            <p><i class="fas fa-home mr-3"></i> ITI Menofia Branch</p>
+            <p><i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
+            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+
+      <hr class="my-3">
+
+      <!-- Section: Copyright -->
+      <section class="p-3 pt-0">
+        <div class="row d-flex align-items-center">
+          <!-- Grid column -->
+          <div class="col-md-7 col-lg-8 text-center text-md-start">
+            <!-- Copyright -->
+            <div class="p-3">
+             ITI © 2022 Copyright:
+              
+            </div>
+            <!-- Copyright -->
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+            <!-- Facebook -->
+            <a
+               class="btn btn-outline-light btn-floating m-1"
+               class="text-white"
+               role="button"
+               ><i class="fab fa-facebook-f"></i
+              ></a>
+
+            <!-- Twitter -->
+            <a
+               class="btn btn-outline-light btn-floating m-1"
+               class="text-white"
+               role="button"
+               ><i class="fab fa-twitter"></i
+              ></a>
+
+            <!-- Google -->
+            <a
+               class="btn btn-outline-light btn-floating m-1"
+               class="text-white"
+               role="button"
+               ><i class="fab fa-google"></i
+              ></a>
+
+            <!-- Instagram -->
+            <a
+               class="btn btn-outline-light btn-floating m-1"
+               class="text-white"
+               role="button"
+               ><i class="fab fa-instagram"></i
+              ></a>
+          </div>
+          <!-- Grid column -->
+        </div>
+      </section>
+      <!-- Section: Copyright -->
+    </div>
+    <!-- Grid container -->
+  </footer>
+  <!-- Footer -->
+</div>
+<!-- End of .container -->
+
+
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/all.min.js"></script>    
+<script src="../js/cart.js" async defer></script>
+<script src="../login.js"></script>
 </body>
 </html>

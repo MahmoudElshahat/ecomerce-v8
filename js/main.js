@@ -267,30 +267,28 @@ showCategorieData(categoriesData)
 // ==============   filter products by categorie Name                     ==================================
 // ======================================================================================
 function filter_product(categoryName) { 
-    console.log("in filter");
+    
     store_data_in_storage("filteredCategory", categoryName);
     location.href = "categoryproducts.html";
-
-    // var filterdProduct = products_data.filter(product => product.category == categoryName)
-    // loop_on_products(filterdProduct,'products_container')
         
 }
 // ======================================== Sale Data ==================================
-// function sale_products() { 
+function sale_products() { 
 
-//     var saleProduct = products_data.filter(product => product.sale > 0)
-//     loop_on_products(saleProduct,'productsContainerBySale')
-// }
-// sale_products()
+    var saleProduct = products_data.filter(product => product.sale > 0)
+    loop_on_products(saleProduct,'saledSection')
+}
+sale_products()
+
 // =====================================================================================
                 // Featured Product 
 // =============================================================================================
-// function fetuar_products() { 
+function fetuar_products() { 
 
-//     var fetureProduct = products_data.filter(product =>product.feature >0)
-//     loop_on_products(fetureProduct,'productsContainerByFeatured')
-// }
-// fetuar_products()
+    var fetureProduct = products_data.filter(product =>product.feature >0)
+    loop_on_products(fetureProduct,'featuredSection')
+}
+fetuar_products()
 // ======================================================================================
 //      loop on products 
 // ======================================================================================
@@ -380,14 +378,14 @@ function filter_product(categoryName) {
 //   setInterval(pre, 3000);
 
 // ========================= search Page =====================
-// function searchPage(){
+function searchPage(){
 
-//     let searchinput = document.getElementById("search");
-//     var inputString=searchinput.value;
-//     console.log(inputString);
-//     window.localStorage.setItem('search',JSON.stringify(inputString))
-//     window.location.href='searchproducts.html'
-// }
+    let searchinput = document.getElementById("search");
+    var inputString=searchinput.value;
+    console.log(inputString);
+    window.localStorage.setItem('search',JSON.stringify(inputString))
+    window.location.href='searchproducts.html'
+}
 
 
-// searchInProducts() 
+ 

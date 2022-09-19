@@ -302,6 +302,7 @@ function add_to_cart(product_id){
         var qty;
         var productCart;
         // var oldqty
+<<<<<<< HEAD
         //var disableCart= 'btnAddCart'+product_id 
         var stored_cart_data=fetch_data_from_storage('carts')||[]
             // stored_cart_data.forEach(cartProduct => {
@@ -311,6 +312,16 @@ function add_to_cart(product_id){
                                                                                
                var existProductCard = stored_cart_data.find(el => el.pro_id == product_id);             
                 if(!existProductCard){
+=======
+        var Check_id;
+        var stored_cart_data=fetch_data_from_storage('carts')||[]
+            stored_cart_data.forEach(cartProduct => {
+                                                        Check_id=cartProduct.pro_id;
+                                                        qty=cartProduct.quntity
+                                                    })
+
+                if(Check_id!=product_id){
+>>>>>>> 80ceb246849f0388ead656cb2b1113daf15746d5
                     products_data.forEach(product => {
                         if (product.id == product_id) {
                                 productCart={
@@ -322,9 +333,12 @@ function add_to_cart(product_id){
                                 }} });
                         stored_cart_data.push(productCart)
                         store_data_in_storage('carts',stored_cart_data)  
+<<<<<<< HEAD
                         changeAddToCard(product_id )
                         // document.getElementById(disableCart).classList.remove('btn-primary')
                         // document.getElementById(disableCart).classList.add('btn-light')
+=======
+>>>>>>> 80ceb246849f0388ead656cb2b1113daf15746d5
                 }
             else{
                 // qty=
@@ -347,10 +361,19 @@ function add_to_cart(product_id){
                 //     stored_cart_data.push(productCart)
                 //     store_data_in_storage('carts',stored_cart_data)  
             
+<<<<<<< HEAD
                 update_cart(existProductCard.quntity ,existProductCard.pro_id)    
                 changeAddToCard(product_id )         
                     // document.getElementById(disableCart).classList.remove('btn-primary')
                     //  document.getElementById(disableCart).classList.add('btn-light')
+=======
+                update_cart(qty,Check_id)
+
+                var disableCart='btnAddCart'+product_id
+                console.log(document.getElementById(disableCart));
+                    document.getElementById(disableCart).classList.remove('btn-primary')
+                     document.getElementById(disableCart).classList.add('btn-light')
+>>>>>>> 80ceb246849f0388ead656cb2b1113daf15746d5
    
          }
 
@@ -370,10 +393,16 @@ function update_cart(qty,product_id){
         // qty++
 
     var cart =fetch_data_from_storage('carts')
+<<<<<<< HEAD
     console.log( cart);
     console.log(product_id);
      var nData;
       for(var i=0;i<cart.length;i++){
+=======
+
+     var nData;
+      for(var i=0;i<=cart.length;i++){
+>>>>>>> 80ceb246849f0388ead656cb2b1113daf15746d5
               if(product_id==cart[i].pro_id){
                 
                 nData={
@@ -383,7 +412,11 @@ function update_cart(qty,product_id){
                   pro_price:cart[i].pro_price,
                   quntity:qty+1
                 }
+<<<<<<< HEAD
                 cart.splice(i,1)
+=======
+                cart.splice(cart.i,1)
+>>>>>>> 80ceb246849f0388ead656cb2b1113daf15746d5
                 cart.push(nData)
                  break;
                 
@@ -394,6 +427,7 @@ function update_cart(qty,product_id){
 
 
 
+<<<<<<< HEAD
 function changeAddToCard(productId)
 {
     var disableCart ;
@@ -431,6 +465,9 @@ function changeStyleAddCardBtn(btn)
         document.getElementById(btn).classList.add('btn-success')
     }
 }
+=======
+
+>>>>>>> 80ceb246849f0388ead656cb2b1113daf15746d5
 
 // ======================================================================================
 // ==============       get cookie                 ==================================

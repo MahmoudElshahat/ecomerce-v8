@@ -302,14 +302,15 @@ function add_to_cart(product_id){
         var qty;
         var productCart;
         // var oldqty
-        var Check_id;
+        //var disableCart= 'btnAddCart'+product_id 
         var stored_cart_data=fetch_data_from_storage('carts')||[]
-            stored_cart_data.forEach(cartProduct => {
-                                                        Check_id=cartProduct.pro_id;
-                                                        qty=cartProduct.quntity
-                                                    })
-
-                if(Check_id!=product_id){
+            // stored_cart_data.forEach(cartProduct => {
+            //                                             Check_id=cartProduct.pro_id;
+            //                                             qty=cartProduct.quntity
+            //                                         })
+                                                                               
+               var existProductCard = stored_cart_data.find(el => el.pro_id == product_id);             
+                if(!existProductCard){
                     products_data.forEach(product => {
                         if (product.id == product_id) {
                                 productCart={
@@ -321,6 +322,9 @@ function add_to_cart(product_id){
                                 }} });
                         stored_cart_data.push(productCart)
                         store_data_in_storage('carts',stored_cart_data)  
+                        changeAddToCard(product_id )
+                        // document.getElementById(disableCart).classList.remove('btn-primary')
+                        // document.getElementById(disableCart).classList.add('btn-light')
                 }
             else{
                 // qty=
@@ -343,12 +347,10 @@ function add_to_cart(product_id){
                 //     stored_cart_data.push(productCart)
                 //     store_data_in_storage('carts',stored_cart_data)  
             
-                update_cart(qty,Check_id)
-
-                var disableCart='btnAddCart'+product_id
-                console.log(document.getElementById(disableCart));
-                    document.getElementById(disableCart).classList.remove('btn-primary')
-                     document.getElementById(disableCart).classList.add('btn-light')
+                update_cart(existProductCard.quntity ,existProductCard.pro_id)    
+                changeAddToCard(product_id )         
+                    // document.getElementById(disableCart).classList.remove('btn-primary')
+                    //  document.getElementById(disableCart).classList.add('btn-light')
    
          }
 
@@ -368,9 +370,10 @@ function update_cart(qty,product_id){
         // qty++
 
     var cart =fetch_data_from_storage('carts')
-
+    console.log( cart);
+    console.log(product_id);
      var nData;
-      for(var i=0;i<=cart.length;i++){
+      for(var i=0;i<cart.length;i++){
               if(product_id==cart[i].pro_id){
                 
                 nData={
@@ -380,7 +383,7 @@ function update_cart(qty,product_id){
                   pro_price:cart[i].pro_price,
                   quntity:qty+1
                 }
-                cart.splice(cart.i,1)
+                cart.splice(i,1)
                 cart.push(nData)
                  break;
                 
@@ -391,7 +394,43 @@ function update_cart(qty,product_id){
 
 
 
+function changeAddToCard(productId)
+{
+    var disableCart ;
+    if(productId)
+    {
+        var stored_cart_data= fetch_data_from_storage('carts');
+        if(stored_cart_data) {
+            var existProductCard = stored_cart_data.find(el => el.pro_id == productId);  
+            disableCart =  'btnAddCart'+existProductCard.pro_id
+            changeStyleAddCardBtn(disableCart)
+        }
 
+    }else{
+        var stored_cart_data= fetch_data_from_storage('carts');
+
+        if(stored_cart_data) {
+
+            stored_cart_data.forEach(cartProduct => {
+                 disableCart= 'btnAddCart'+cartProduct.pro_id
+                 changeStyleAddCardBtn(disableCart)
+              
+               
+            })
+    
+        }
+    }
+
+}changeAddToCard()
+
+function changeStyleAddCardBtn(btn)
+{
+    if(document.getElementById(btn)){
+        document.getElementById(btn).innerText = 'Add More To Cart';
+        document.getElementById(btn).classList.remove('btn-primary')
+        document.getElementById(btn).classList.add('btn-success')
+    }
+}
 
 // ======================================================================================
 // ==============       get cookie                 ==================================

@@ -13,8 +13,7 @@ function showSingleProduct(){
       var pro_quntity =document.getElementById('quntity')
       var pro_categorie =document.getElementById('categorie')
       var pro_descr =document.getElementById('descr')
-      var sigleAddCart =document.getElementById('sigleAddCart')
-
+      var sigleAddCart =document.getElementById('sigleAdd')
       // var star=document.getElementsByClassName('starrr')
       var sigle_product=products.filter(product=>product.id==id)
       
